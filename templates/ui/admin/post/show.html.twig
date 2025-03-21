@@ -1,4 +1,4 @@
-{% extends 'admin/layout/layout.html.twig' %}
+{% extends 'ui/admin/layout/layout.html.twig' %}
 
 {% block title %}Просмотр поста{% endblock %}
 
@@ -38,6 +38,6 @@
         </tbody>
     </table>
 
-    <a class="btn btn-warning" href="{{ path('app_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
-    <a class="btn btn-secondary" href="{{ path('app_admin_post_index') }}">Вернуться к списку постов</a>
+    <a class="btn btn-warning" href="{{ path('ui_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
+    <a class="btn btn-secondary" href="{{ path('ui_admin_post_index') }}">Вернуться к списку постов</a>
 {% endblock %}

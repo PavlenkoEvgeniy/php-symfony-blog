@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Ui\Admin;
 
 use App\Entity\Post;
 use App\Form\PostType;
@@ -14,15 +14,15 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PostController extends AbstractController
 {
-    #[Route('/admin/post', name: 'app_admin_post_index', methods: [Request::METHOD_GET])]
+    #[Route('/admin/post', name: 'ui_admin_post_index', methods: [Request::METHOD_GET])]
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('admin/post/index.html.twig', [
+        return $this->render('ui/admin/post/index.html.twig', [
             'posts' => $postRepository->findAll(),
         ]);
     }
 
-    #[Route('/admin/post/new', name: 'app_admin_post_new', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/admin/post/new', name: 'ui_admin_post_new', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
@@ -33,24 +33,24 @@ final class PostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ui_admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/post/new.html.twig', [
+        return $this->render('ui/admin/post/new.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
     }
 
-    #[Route('/admin/post/show/{id}', name: 'app_admin_post_show', methods: [Request::METHOD_GET])]
+    #[Route('/admin/post/show/{id}', name: 'ui_admin_post_show', methods: [Request::METHOD_GET])]
     public function show(Post $post): Response
     {
-        return $this->render('admin/post/show.html.twig', [
+        return $this->render('ui/admin/post/show.html.twig', [
             'post' => $post,
         ]);
     }
 
-    #[Route('/admin/post/edit/{id}', name: 'app_admin_post_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/admin/post/edit/{id}', name: 'ui_admin_post_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PostType::class, $post);
@@ -59,16 +59,16 @@ final class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('ui_admin_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/post/edit.html.twig', [
+        return $this->render('ui/admin/post/edit.html.twig', [
             'post' => $post,
             'form' => $form,
         ]);
     }
 
-    #[Route('/admin/post/delete/{id}', name: 'app_admin_post_delete', methods: [Request::METHOD_DELETE])]
+    #[Route('/admin/post/delete/{id}', name: 'ui_admin_post_delete', methods: [Request::METHOD_DELETE])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,20 +76,20 @@ final class PostController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin_post_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('ui_admin_post_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/admin/post/trash', name: 'app_admin_post_trash', methods: [Request::METHOD_GET])]
+    #[Route('/admin/post/trash', name: 'ui_admin_post_trash', methods: [Request::METHOD_GET])]
     public function trash(PostRepository $postRepository, EntityManagerInterface $entityManager): Response
     {
         $entityManager->getFilters()->disable('softDeleteable');
 
-        return $this->render('admin/post/trash.html.twig', [
+        return $this->render('ui/admin/post/trash.html.twig', [
             'posts' => $postRepository->findDeletedPosts(),
         ]);
     }
 
-    #[Route('/admin/post/restore/{id}', name: 'app_admin_post_restore', methods: [Request::METHOD_GET])]
+    #[Route('/admin/post/restore/{id}', name: 'ui_admin_post_restore', methods: [Request::METHOD_GET])]
     public function restore(PostRepository $postRepository, EntityManagerInterface $entityManager, int $id): Response
     {
         $entityManager->getFilters()->disable('softDeleteable');
@@ -104,10 +104,10 @@ final class PostController extends AbstractController
     
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_admin_post_trash', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('ui_admin_post_trash', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/admin/post/truncate/{id}', name: 'app_admin_post_truncate', methods: [Request::METHOD_DELETE])]
+    #[Route('/admin/post/truncate/{id}', name: 'ui_admin_post_truncate', methods: [Request::METHOD_DELETE])]
     public function truncate(Request $request, PostRepository $postRepository, EntityManagerInterface $entityManager, int $id): Response
     {
         if ($this->isCsrfTokenValid('truncate'.$id, $request->getPayload()->getString('_token'))) {
@@ -119,6 +119,6 @@ final class PostController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin_post_trash', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('ui_admin_post_trash', [], Response::HTTP_SEE_OTHER);
     }
 }

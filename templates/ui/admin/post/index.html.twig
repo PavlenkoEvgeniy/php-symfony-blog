@@ -1,4 +1,4 @@
-{% extends 'admin/layout/layout.html.twig' %}
+{% extends 'ui/admin/layout/layout.html.twig' %}
 
 {% block title %}Список постов{% endblock %}
 
@@ -6,8 +6,8 @@
     <h1>Список постов</h1>
 
     <div class="d-flex justify-content-between">
-        <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
-        <a class="btn btn-outline-secondary" href="{{ path('app_admin_post_trash') }}">&#128465; Мусорка</a>
+        <a class="btn btn-success" href="{{ path('ui_admin_post_new') }}">+ Создать новый пост</a>
+        <a class="btn btn-outline-secondary" href="{{ path('ui_admin_post_trash') }}">&#128465; Мусорка</a>
     </div>
 
     <table class="table">
@@ -34,9 +34,9 @@
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="d-flex gap-2">
-                    <a class="btn btn-secondary" href="{{ path('app_admin_post_show', {'id': post.id}) }}">Показать</a>
-                    <a class="btn btn-warning" href="{{ path('app_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
-                    {{ include('admin/post/_delete_form.html.twig') }}
+                    <a class="btn btn-secondary" href="{{ path('ui_admin_post_show', {'id': post.id}) }}">Показать</a>
+                    <a class="btn btn-warning" href="{{ path('ui_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
+                    {{ include('ui/admin/post/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
+    <a class="btn btn-success" href="{{ path('ui_admin_post_new') }}">+ Создать новый пост</a>
 {% endblock %}

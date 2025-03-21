@@ -1,4 +1,4 @@
-{% extends 'admin/layout/layout.html.twig' %}
+{% extends 'ui/admin/layout/layout.html.twig' %}
 
 {% block title %}Список удаленных постов{% endblock %}
 
@@ -31,9 +31,9 @@
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.deletedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="d-flex gap-2">
-                    <a class="btn btn-secondary" href="{{ path('app_admin_post_show', {'id': post.id}) }}">Показать</a>
-                    <a class="btn btn-success" href="{{ path('app_admin_post_restore', {'id': post.id}) }}">Восстановить</a>
-                    {{ include('admin/post/_truncate_form.html.twig', {'button_label': 'Уничтожить', 'label': 'Уничтожить?'}) }}
+                    <a class="btn btn-secondary" href="{{ path('ui_admin_post_show', {'id': post.id}) }}">Показать</a>
+                    <a class="btn btn-success" href="{{ path('ui_admin_post_restore', {'id': post.id}) }}">Восстановить</a>
+                    {{ include('ui/admin/post/_truncate_form.html.twig', {'button_label': 'Уничтожить', 'label': 'Уничтожить?'}) }}
                 </td>
             </tr>
         {% else %}
@@ -44,5 +44,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-secondary mb-2" href="{{ path('app_admin_post_index') }}">Вернуться к списку постов</a>
+    <a class="btn btn-secondary mb-2" href="{{ path('ui_admin_post_index') }}">Вернуться к списку постов</a>
 {% endblock %}
