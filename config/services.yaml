@@ -24,7 +24,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     gedmo.mapping.driver.attribute:
-    class: Gedmo\Mapping\Driver\AttributeReader
+        class: Gedmo\Mapping\Driver\AttributeReader
 
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener
