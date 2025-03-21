@@ -1,22 +1,24 @@
 {% extends 'admin/layout/layout.html.twig' %}
 
-{% block title %}Post index{% endblock %}
+{% block title %}Список постов{% endblock %}
 
 {% block body %}
-    <h1>Post index</h1>
+    <h1>Список постов</h1>
+
+    <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>IsPublished</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>DeletedAt</th>
-                <th>actions</th>
+                <th>ИД</th>
+                <th>Название</th>
+                <th>Содержание</th>
+                <th>Опубликован</th>
+                <th>Дата создания</th>
+                <th>Дата обновления</th>
+                <th>Дата удаления</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -26,22 +28,22 @@
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.content }}</td>
-                <td>{{ post.isPublished ? 'Yes' : 'No' }}</td>
+                <td>{{ post.isPublished ? 'Да' : 'Нет' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.deletedAt ? post.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_admin_post_edit', {'id': post.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_admin_post_show', {'id': post.id}) }}">Показать</a>
+                    <a href="{{ path('app_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td class="text-center" colspan="9">Постов нет...</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_post_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
 {% endblock %}
