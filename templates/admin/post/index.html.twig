@@ -1,4 +1,4 @@
-{% extends 'admin/layout.html.twig' %}
+{% extends 'admin/layout/layout.html.twig' %}
 
 {% block title %}Post index{% endblock %}
 
@@ -8,6 +8,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Id</th>
                 <th>Title</th>
                 <th>Content</th>
@@ -21,6 +22,7 @@
         <tbody>
         {% for post in posts %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.content }}</td>
