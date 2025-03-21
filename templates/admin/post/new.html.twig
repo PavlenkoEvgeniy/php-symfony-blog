@@ -1,11 +1,11 @@
 {% extends 'admin/layout/layout.html.twig' %}
 
-{% block title %}New Post{% endblock %}
+{% block title %}Создание нового поста{% endblock %}
 
 {% block body %}
-    <h1>Create new Post</h1>
+    <h1>Создание нового поста</h1>
 
     {{ include('admin/post/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_post_index') }}">back to list</a>
+    <a class="btn btn-secondary" href="{{ path('app_admin_post_index') }}">Вернуться к списку постов</a>
 {% endblock %}

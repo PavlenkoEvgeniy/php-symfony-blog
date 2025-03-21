@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_admin_post_truncate', {'id': post.id}) }}" onsubmit="return confirm('Вы уверены что хотите удалить насовсем?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('truncate' ~ post.id) }}">
+    <input type="hidden" name="_method" value="delete">
+    <button class="btn btn-danger">Уничтожить</button>
+</form>

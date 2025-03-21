@@ -1,16 +1,11 @@
 {% extends 'admin/layout/layout.html.twig' %}
 
-{% block title %}Список постов{% endblock %}
+{% block title %}Список удаленных постов{% endblock %}
 
 {% block body %}
-    <h1>Список постов</h1>
+    <h1>Список удаленных постов</h1>
 
-    <div class="d-flex justify-content-between">
-        <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
-        <a class="btn btn-outline-secondary" href="{{ path('app_admin_post_trash') }}">&#128465; Мусорка</a>
-    </div>
-
-    <table class="table">
+ <table class="table">
         <thead>
             <tr>
                 <th>№</th>
@@ -20,6 +15,7 @@
                 <th>Опубликован</th>
                 <th>Создан</th>
                 <th>Обновлен</th>
+                <th>Удален</th>
                 <th>Действия</th>
             </tr>
         </thead>
@@ -33,19 +29,20 @@
                 <td>{{ post.isPublished ? 'Да' : 'Нет' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.deletedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="d-flex gap-2">
                     <a class="btn btn-secondary" href="{{ path('app_admin_post_show', {'id': post.id}) }}">Показать</a>
-                    <a class="btn btn-warning" href="{{ path('app_admin_post_edit', {'id': post.id}) }}">Редактировать</a>
-                    {{ include('admin/post/_delete_form.html.twig') }}
+                    <a class="btn btn-success" href="{{ path('app_admin_post_restore', {'id': post.id}) }}">Восстановить</a>
+                    {{ include('admin/post/_truncate_form.html.twig', {'button_label': 'Уничтожить', 'label': 'Уничтожить?'}) }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td class="text-center" colspan="9">Постов нет...</td>
+                <td class="text-center" colspan="9">Мусорка пуста...</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-success" href="{{ path('app_admin_post_new') }}">+ Создать новый пост</a>
+    <a class="btn btn-secondary mb-2" href="{{ path('app_admin_post_index') }}">Вернуться к списку постов</a>
 {% endblock %}
