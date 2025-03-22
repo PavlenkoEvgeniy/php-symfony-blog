@@ -1,0 +1,11 @@
+{% extends 'ui/admin/layout/layout.html.twig' %}
+
+{% block title %}Создание новой категории{% endblock %}
+
+{% block body %}
+    <h1>Создание новой категории</h1>
+
+    {{ include('ui/admin/category/_form.html.twig') }}
+
+    <a class="btn btn-secondary" href="{{ path('ui_admin_category_index') }}">Вернуться к списку категорий</a>
+{% endblock %}

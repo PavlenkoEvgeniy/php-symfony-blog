@@ -1,0 +1,44 @@
+{% extends 'ui/admin/layout/layout.html.twig' %}
+
+{% block title %}Список удаленных категорий{% endblock %}
+
+{% block body %}
+    <h1>Список удаленных категорий</h1>
+
+ <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>ИД</th>
+                <th>Название</th>
+                <th>Создан</th>
+                <th>Обновлен</th>
+                <th>Удален</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name|u.truncate(25) ~ '...'  }}</td>
+                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ category.deletedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="d-flex gap-2">
+                    <a class="btn btn-secondary" href="{{ path('ui_admin_category_show', {'id': category.id}) }}">Показать</a>
+                    <a class="btn btn-success" href="{{ path('ui_admin_category_restore', {'id': category.id}) }}">Восстановить</a>
+                    {{ include('ui/admin/category/_truncate_form.html.twig', {'button_label': 'Уничтожить', 'label': 'Уничтожить?'}) }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="text-center" colspan="9">Мусорка пуста...</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary mb-2" href="{{ path('ui_admin_category_index') }}">Вернуться к списку категорий</a>
+{% endblock %}

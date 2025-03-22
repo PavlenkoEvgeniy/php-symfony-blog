@@ -1,0 +1,11 @@
+{% extends 'ui/admin/layout/layout.html.twig' %}
+
+{% block title %}Изменение категории{% endblock %}
+
+{% block body %}
+    <h1>Изменение категории</h1>
+
+    {{ include('ui/admin/category/_form.html.twig', {'button_label': 'Сохранить изменения'}) }}
+
+    <a class="btn btn-secondary" href="{{ path('ui_admin_category_index') }}">Вернуться к списку категорий</a>
+{% endblock %}

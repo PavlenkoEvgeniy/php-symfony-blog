@@ -16,16 +16,16 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-       /**
-        * @return Post[] Returns an array of Post objects
-        */
-       public function findDeletedPosts(): array
-       {
-           return $this->createQueryBuilder('p')
-               ->andWhere('p.deletedAt is not null')
-               ->orderBy('p.id', 'ASC')
-               ->getQuery()
-               ->getResult()
-           ;
-       }
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findDeletedPosts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.deletedAt is not null')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

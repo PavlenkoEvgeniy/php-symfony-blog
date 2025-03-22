@@ -30,6 +30,9 @@ class Post
     #[ORM\Column(options: ['default' => true])]
     private ?bool $isPublished = null;
 
+    #[ORM\ManyToOne(inversedBy: 'post')]
+    private ?Category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +70,18 @@ class Post
     public function setIsPublished(bool $isPublished): static
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-
 final class PostController extends AbstractController
 {
     #[Route('/admin/post', name: 'ui_admin_post_index', methods: [Request::METHOD_GET])]
@@ -71,7 +70,7 @@ final class PostController extends AbstractController
     #[Route('/admin/post/delete/{id}', name: 'ui_admin_post_delete', methods: [Request::METHOD_DELETE])]
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($post);
             $entityManager->flush();
         }
@@ -101,7 +100,7 @@ final class PostController extends AbstractController
         }
 
         $post->setDeletedAt(null);
-    
+
         $entityManager->flush();
 
         return $this->redirectToRoute('ui_admin_post_trash', [], Response::HTTP_SEE_OTHER);
@@ -110,7 +109,7 @@ final class PostController extends AbstractController
     #[Route('/admin/post/truncate/{id}', name: 'ui_admin_post_truncate', methods: [Request::METHOD_DELETE])]
     public function truncate(Request $request, PostRepository $postRepository, EntityManagerInterface $entityManager, int $id): Response
     {
-        if ($this->isCsrfTokenValid('truncate'.$id, $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('truncate' . $id, $request->getPayload()->getString('_token'))) {
             $entityManager->getFilters()->disable('softDeleteable');
 
             $post = $postRepository->findOneById($id);
